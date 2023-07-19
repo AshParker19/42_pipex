@@ -22,7 +22,7 @@ $(NAME): $(OBJS)
 	@echo "$(GREEN)♖ ♘ ♗ ♕ ♔ ♗ ♘ ♖"
 	@echo "$(GREEN)♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙"
 	@echo "$(BLUE)♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙"
-	@echo "$(BLUE)♜ ♞ ♝ ♛ ♚ ♝ ♞ ♜"
+	@echo "$(BLUE)♜ ♞ ♝ ♚ ♛ ♝ ♞ ♜"
 	@rm -rf $(OBJS) # !!! remove this shit !!!
 
 %.o: %.c
