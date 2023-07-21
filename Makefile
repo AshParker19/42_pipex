@@ -2,7 +2,7 @@ NAME = pipex
 
 CC = cc
 
-CFLAGS = -g
+CFLAGS = -g #-fsanitize=address
 #!!! DON'T FORGET FREAKING FLAGS !!!
 
 SRCS := $(wildcard *.c)

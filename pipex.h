@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:02 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/20 19:19:57 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/07/21 17:32:42 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define OPEN_ERROR      3
 # define PIPE_ERROR      4
 # define FORK_ERROR      5
+# define EXECVE_ERROR    6
 
 // path handling
 char    **ft_get_path(char *env[]);
