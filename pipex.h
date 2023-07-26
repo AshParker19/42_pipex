@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:02 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/21 17:32:42 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:09:56 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,19 @@
 # define FORK_ERROR      5
 # define EXECVE_ERROR    6
 
+// # define malloc(x) NULL
+
 // path handling
 char    **ft_get_path(char *env[]);
 char    *ft_find_path(char *env[], char *path);
+
+// command handling
+char	*ft_find_command(char *cmd, char **path_dirs);
+char	*ft_strjoin_slash(char *src, char *dest);
+
+// utils
+int		ft_check_access(char *path);
+void	ft_free_array(char **arr);
 
 // libft utils
 int	    ft_strncmp(const char *s1, const char *s2, size_t n);
