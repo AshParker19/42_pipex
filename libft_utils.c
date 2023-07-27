@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:08:58 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/25 14:30:38 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/07/27 13:51:23 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,24 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (c1 - c2);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*joined;
-	int		i;
+	void	*p;
 
-	i = 0;
-	if (!s1 || !s2)
+	p = malloc(nmemb * size);
+	if (!p)
 		return (NULL);
-	joined = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!joined)
-		return (NULL);
-	while (*s1)
-		joined[i++] = *s1++;
-	while (*s2)
-		joined[i++] = *s2++;
-	joined[i] = 0;
-	return (joined);
+	ft_bzero(p, nmemb * size);
+	return (p);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	char	*copy;
+
+	copy = s;
+	while (n--)
+		*copy++ = '\0';
 }
 
 char	**ft_split(char *str, char *arr[], int count, char c)

@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:02 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/25 17:09:56 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/07/27 21:17:12 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@
 
 // # define malloc(x) NULL
 
+typedef	struct s_store
+{
+	int		infile_fd;
+	int		outfile_fd;
+	int		fd[2];
+	char	**path_dirs;
+	char	**env;
+}				t_store;
+
 // path handling
 char    **ft_get_path(char *env[]);
 char    *ft_find_path(char *env[], char *path);
@@ -48,7 +57,8 @@ void	ft_free_array(char **arr);
 // libft utils
 int	    ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char const *s1, char const *s2);
+void	*ft_calloc(size_t nmemb, size_t size);
+void	ft_bzero(void *s, size_t n);
 char	**ft_split(char *str, char *arr[], int count, char c);
 
 #endif
