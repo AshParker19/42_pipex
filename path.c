@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 16:44:37 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/27 15:17:40 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/07/28 22:52:16 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char    **ft_get_path(char *env[])
         return (NULL);
     return (path_dirs);  
 }
-
 char    *ft_find_path(char *env[], char *path)
 {
     int     i;
