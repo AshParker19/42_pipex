@@ -1,16 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command.c                                          :+:      :+:    :+:   */
+/*   path_and_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:24:38 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/25 16:26:32 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/07/29 22:54:13 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+char	**ft_get_path(char *env[])
+{
+	char	*path;
+	char	*abs_path;
+	char	**path_dirs;
+	int		skip;
+
+	path = "PATH=";
+	skip = 5;
+	abs_path = ft_find_path(env, path);
+	abs_path += skip;
+	path_dirs = ft_split(abs_path, NULL, 0, ':');
+	if (!path_dirs)
+		return (NULL);
+	return (path_dirs);
+}
+
+char	*ft_find_path(char *env[], char *path)
+{
+	int	i;
+
+	i = -1;
+	while (env[++i])
+		if (!ft_strncmp(path, env[i], 5))
+			return (env[i]);
+	return (NULL);
+}
 
 char	*ft_find_command(char *cmd, char **path_dirs)
 {
@@ -30,7 +58,6 @@ char	*ft_find_command(char *cmd, char **path_dirs)
 	}
 	return (NULL);
 }
-
 char	*ft_strjoin_slash(char *src, char *dest)
 {
 	int		i;
@@ -43,19 +70,18 @@ char	*ft_strjoin_slash(char *src, char *dest)
 		i++;
 	while (src[j])
 		j++;
-	path = malloc(i + j + 2);			
+	path = malloc(i + j + 2);
 	if (!path)
 		return (NULL);
-	i = -1;	
+	i = -1;
 	while(dest[++i])
 		path[i] = dest[i];
 	path[i++] = '/';
-	j = 0;
-	while (src[j])
+	j = -1;
+	while (src[++j])
 	{
 		path[i] = src[j];
 		i++;
-		j++;
 	}
 	path[i] = 0;
 	return (path);

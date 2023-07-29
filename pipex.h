@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:02 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/28 18:00:36 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/07/29 22:54:18 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-
-// define and list the macros for all the errors here
 // errors
 # define ARGUMENT_ERROR  1
 # define ACCESS_ERROR    2
@@ -30,6 +28,15 @@
 # define PIPE_ERROR      4
 # define FORK_ERROR      5
 # define EXECVE_ERROR    6
+
+// checking flags
+
+// directions
+# define INFILE_TO_CMD   7
+# define CMD_TO_OUTFILE  8
+# define CMD_TO_CMD		 9
+
+
 
 // # define malloc(x) NULL
 
@@ -40,6 +47,8 @@ typedef	struct s_store
 	int		fd[2];
 	int		p_fd;
 	char	**path_dirs;
+	int		ac;
+	char	**av;
 	char	**env;
 }				t_store;
 
