@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:02 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/29 22:54:18 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/07/30 21:51:27 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include "get_next_line/get_next_line.h"
 
 // errors
 # define ARGUMENT_ERROR  1
@@ -36,8 +37,6 @@
 # define CMD_TO_OUTFILE  8
 # define CMD_TO_CMD		 9
 
-
-
 // # define malloc(x) NULL
 
 typedef	struct s_store
@@ -52,13 +51,18 @@ typedef	struct s_store
 	char	**env;
 }				t_store;
 
-// path handling
+/* path handling */
 char    **ft_get_path(char *env[]);
 char    *ft_find_path(char *env[], char *path);
 
-// command handling
+/* command handling */
 char	*ft_find_command(char *cmd, char **path_dirs);
 char	*ft_strjoin_slash(char *src, char *dest);
+
+// multipipes
+void	ft_multipipes(t_store *store, int i, int j);
+void	ft_exec_cmd(char *cmd, t_store *store, int flag);
+void	ft_manage_redirection(t_store *store, int flag);
 
 // utils
 int		ft_check_access(char *path);
@@ -67,8 +71,6 @@ void	ft_free_array(char **arr);
 // libft utils
 int	    ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
-void	*ft_calloc(size_t nmemb, size_t size);
-void	ft_bzero(void *s, size_t n);
 char	**ft_split(char *str, char *arr[], int count, char c);
 
 #endif

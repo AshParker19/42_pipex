@@ -5,7 +5,7 @@ CC = cc
 CFLAGS = -g #-fsanitize=address
 #!!! DON'T FORGET FREAKING FLAGS !!!
 
-SRCS := $(wildcard *.c)
+SRCS := $(wildcard *.c) $(wildcard get_next_line/*c)
 
 OBJS :=$(SRCS:.c=.o)
 
@@ -16,6 +16,10 @@ ORANGE = 	\033[0;33m
 BLUE   = 	\033[34m
 PURPLE = 	\033[35m
 RESET  = 	\033[0m
+
+.PHONY: all clean fclean norm re
+
+all : $(NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $^ -o $@
@@ -36,3 +40,5 @@ clean:
 
 fclean : clean
 		@rm -f $(NAME)
+
+re : fclean all

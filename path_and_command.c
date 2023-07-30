@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:24:38 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/29 22:54:13 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:07:15 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char	*ft_find_command(char *cmd, char **path_dirs)
 		check = access(path, mode);
 		if (check == 0)
 			return (path);
+		else
+			free(path);
 	}
 	return (NULL);
 }
