@@ -6,11 +6,11 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:32:01 by anshovah          #+#    #+#             */
-/*   Updated: 2023/04/07 17:09:32 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:20:22 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 int	ft_len_nl(char *str)
 {

@@ -17,12 +17,17 @@ BLUE   = 	\033[34m
 PURPLE = 	\033[35m
 RESET  = 	\033[0m
 
+# libft
+LIBFT = make -sC ./libft
+LIBFT_FOLDER = ./libft
+
 .PHONY: all clean fclean norm re
 
 all : $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $^ -o $@
+	@$(LIBFT)
+	@$(CC) $(CFLAGS) $(OBJS) -Llibft -lft -o $(NAME)
 	@echo "$(GREEN)♖ ♘ ♗ ♕ ♔ ♗ ♘ ♖"
 	@echo "$(GREEN)♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙"
 	@echo "$(BLUE)♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙"
@@ -33,12 +38,14 @@ $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm -f $(OBJS) $(OBJS_BONUS)
+	@rm -f $(OBJS)
+	@make clean -sC ./libft
 	@echo "$(ORANGE)┌────────────────────────────────────────────────────────────────────────┐"
 	@echo "│                              $(GREEN)[✓] CLEANED!$(ORANGE)                              │"
 	@echo "$(ORANGE)└────────────────────────────────────────────────────────────────────────┘$(RESET)"
 
 fclean : clean
 		@rm -f $(NAME)
+		@make fclean -sC ./libft
 
 re : fclean all

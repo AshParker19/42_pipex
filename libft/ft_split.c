@@ -1,44 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_utils.c                                      :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/19 15:08:58 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/30 20:14:28 by anshovah         ###   ########.fr       */
+/*   Created: 2023/03/07 13:19:02 by anshovah          #+#    #+#             */
+/*   Updated: 2023/05/27 18:22:33 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	unsigned char	c1;
-	unsigned char	c2;
-	size_t			i;
-
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (s1[i] && s1[i] == s2[i] && i < n - 1)
-		i++;
-	c1 = s1[i];
-	c2 = s2[i];
-	return (c1 - c2);
-}
-
-char	**ft_split(char *str, char *arr[], int count, char c)
+char	**recursive_split(char *str, char **arr, int words, char c)
 {
 	char	*new_str;
 	int		i;
@@ -57,10 +31,15 @@ char	**ft_split(char *str, char *arr[], int count, char c)
 	while (new_str && str && *str && *str != c)
 		new_str[i++] = *str++;
 	if (new_str)
-		arr = ft_split(str, arr, count + 1, c);
+		arr = recursive_split(str, arr, words + 1, c);
 	else
-		arr = (char **)malloc(sizeof(char *) * (count + 1));
+		arr = (char **)malloc(sizeof(char *) * (words + 1));
 	if (arr)
-		arr[count] = new_str;
+		arr[words] = new_str;
 	return (arr);
+}
+
+char	**ft_split(const char *str, char c)
+{
+	return (recursive_split((char *)str, NULL, 0, c));
 }

@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:24:38 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/30 19:07:15 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:55:01 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**ft_get_path(char *env[])
 	skip = 5;
 	abs_path = ft_find_path(env, path);
 	abs_path += skip;
-	path_dirs = ft_split(abs_path, NULL, 0, ':');
+	path_dirs = ft_split(abs_path, ':');
 	if (!path_dirs)
 		return (NULL);
 	return (path_dirs);
@@ -49,6 +49,13 @@ char	*ft_find_command(char *cmd, char **path_dirs)
 
 	mode = X_OK | F_OK;
 	i = -1;
+	if (ft_strchr(cmd, '/') != NULL)
+	{
+		check = access(path, mode);
+		if (check == 0)
+			return (ft_strdup(cmd));
+		return (NULL);
+	}
 	while (path_dirs[++i])
 	{
 		path = ft_strjoin_slash(cmd, path_dirs[i]);

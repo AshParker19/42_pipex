@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:02 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/30 21:51:27 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:50:46 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include "get_next_line/get_next_line.h"
+# include "libft/libft.h"
 
-// errors
+// errors TODO: do error values according to the system's ones
 # define ARGUMENT_ERROR  1
 # define ACCESS_ERROR    2
 # define OPEN_ERROR      3
@@ -44,7 +44,10 @@ typedef	struct s_store
 	int		infile_fd;
 	int		outfile_fd;
 	int		fd[2];
+	int		*pid;
 	int		p_fd;
+	int		s_fd1;
+	int		s_fd2;
 	char	**path_dirs;
 	int		ac;
 	char	**av;
@@ -62,15 +65,10 @@ char	*ft_strjoin_slash(char *src, char *dest);
 // multipipes
 void	ft_multipipes(t_store *store, int i, int j);
 void	ft_exec_cmd(char *cmd, t_store *store, int flag);
-void	ft_manage_redirection(t_store *store, int flag);
+void	ft_manage_redirection(t_store *store, int flag, int check);
 
 // utils
 int		ft_check_access(char *path);
 void	ft_free_array(char **arr);
-
-// libft utils
-int	    ft_strncmp(const char *s1, const char *s2, size_t n);
-size_t	ft_strlen(const char *s);
-char	**ft_split(char *str, char *arr[], int count, char c);
 
 #endif
