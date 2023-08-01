@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:30:55 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/31 20:57:15 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:06:29 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_multipipes(t_store *store, int i, int j)
 {
+	
 	store->pid = malloc((store->ac - 3) * sizeof(int));
 	if (!store->pid)
 		return ;
@@ -33,8 +34,6 @@ void	ft_multipipes(t_store *store, int i, int j)
 		}
 		if (i > 0)
 			close(store->p_fd);
-		if (i == store->ac - 4)
-			close(store->fd[0]);
 		close(store->fd[1]);
 		i++;	
 		j++;
@@ -44,7 +43,7 @@ void	ft_multipipes(t_store *store, int i, int j)
 	close(store->outfile_fd);
 	i = -1;
 	while (++i < store->ac - 3)
-		waitpid(store->pid[i], NULL, 0);
+		waitpid(store->pid[i], &store->status, 0);
 	free (store->pid);	
 	ft_free_array(store->path_dirs);
 }
@@ -53,8 +52,6 @@ void	ft_exec_cmd(char *cmd, t_store *store, int flag)
 {
 	char	**argv;
 	char	*cmd_path;
-	char	*info;
-	int		fd2[2];
 
 	argv = ft_split(cmd, ' ');
 	cmd_path = ft_find_command(argv[0], store->path_dirs);
@@ -65,9 +62,10 @@ void	ft_exec_cmd(char *cmd, t_store *store, int flag)
 		perror("execve");
 	}
 	else
-		ft_printf("command not found: '%s'\n", argv[0]);
-	close(store->s_fd1);
-	close(store->s_fd2);
+	{
+		ft_putstr_fd("command not found: ", 2);
+		ft_putendl_fd(argv[0], 2);
+	}
 	close(store->outfile_fd);
 	free (cmd_path);
 	free (store->pid);
@@ -80,47 +78,25 @@ void	ft_manage_redirection(t_store *store, int flag, int check)
 {	
 	if (flag == INFILE_TO_CMD)
 	{
-		if (store->infile_fd == -1)
-		{
-			close(store->outfile_fd);
-			close(store->fd[0]);
-			close(store->fd[1]);
-			ft_free_array(store->path_dirs);
-			exit(127);
-		}
 		close(store->fd[0]);
 		check = dup2(store->infile_fd, STDIN_FILENO);
-		store->s_fd1 = check;
 		close(store->infile_fd);
 		check = dup2(store->fd[1], STDOUT_FILENO);
-		store->s_fd2 = check;
 		close(store->fd[1]);
 	}
 	else if (flag == CMD_TO_OUTFILE)
 	{
-		if (store->outfile_fd == -1)
-		{
-			close(store->infile_fd);
-			close(store->fd[0]);
-			close(store->fd[1]);
-			ft_free_array(store->path_dirs);
-			exit(127);
-		}
 		check = dup2(store->p_fd, STDIN_FILENO);
-		store->s_fd1 = check;
 		close (store->p_fd);
 		check = dup2(store->outfile_fd, STDOUT_FILENO);
-		store->s_fd2 = check;
 		close (store->outfile_fd);
 	}
 	else if (flag == CMD_TO_CMD)
 	{
 		check = dup2(store->p_fd, STDIN_FILENO);
-		store->s_fd1 = check;
 		close(store->p_fd);
 		close(store->fd[0]);
 		check = dup2(store->fd[1], STDOUT_FILENO);
-		store->s_fd2 = check;
 		close(store->fd[1]);
 	}
 }

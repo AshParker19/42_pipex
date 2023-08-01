@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:24:38 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/31 20:55:01 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/01 21:47:32 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ char	*ft_find_command(char *cmd, char **path_dirs)
 
 	mode = X_OK | F_OK;
 	i = -1;
-	if (ft_strchr(cmd, '/') != NULL)
+	if (ft_strchr(cmd, '/') != NULL) // FIXME:make it work with a full path
 	{
-		check = access(path, mode);
+		check = access(cmd, mode);
 		if (check == 0)
 			return (ft_strdup(cmd));
 		return (NULL);

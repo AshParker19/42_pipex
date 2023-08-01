@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:02 by anshovah          #+#    #+#             */
-/*   Updated: 2023/07/31 16:50:46 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:02:00 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@ typedef	struct s_store
 	int		infile_fd;
 	int		outfile_fd;
 	int		fd[2];
+	int		status;
 	int		*pid;
 	int		p_fd;
-	int		s_fd1;
-	int		s_fd2;
 	char	**path_dirs;
 	int		ac;
 	char	**av;
