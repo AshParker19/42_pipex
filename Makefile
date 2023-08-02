@@ -3,7 +3,7 @@ NAME = pipex
 CC = cc
 
 CFLAGS = -g #-fsanitize=address
-#!!! DON'T FORGET FREAKING FLAGS !!!
+#TODO:FIXME:!!! DON'T FORGET FREAKING FLAGS !!!FIXME:TODO:
 
 SRCS := $(wildcard *.c) $(wildcard get_next_line/*c)
 

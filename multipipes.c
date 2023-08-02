@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:30:55 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/02 16:36:10 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/02 21:38:10 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void	ft_open_and_redirect(t_store *store, int flag, int hd_flag)
 			if (check < 0)
 			{
 				perror("open");
-				// close(store->infile_fd);
 				ft_free_array(store->path_dirs);
 				free(store->pid);
 				close(store->fd[0]);

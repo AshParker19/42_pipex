@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:45:47 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/02 16:31:33 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/02 21:19:09 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,11 @@ void	ft_initialize_store(t_store *store, int ac, char **av, char **env, int flag
 	store->env = env;
 	store->infile_fd = -1;
 	store->outfile_fd = -1;
+	store->fd[0] = -1;
+	store->fd[1] = -1;
+	store->dup_fd[0] = -1;
+	store->dup_fd[1] = -1;
+	store->p_fd = -1;
 }
 
 int	main(int ac, char *av[], char *env[])

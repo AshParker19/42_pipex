@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:02 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/02 15:37:16 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/02 21:27:40 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/wait.h>
 # include "libft/libft.h"
 
-// errors TODO: do error values according to the system's ones
+// errors
 # define ARGUMENT_ERROR  1
 # define ACCESS_ERROR    2
 # define OPEN_ERROR      1
@@ -30,14 +30,10 @@
 # define FORK_ERROR      5
 # define EXECVE_ERROR    127
 
-// checking flags
-
 // directions
 # define INFILE_TO_CMD   7
 # define CMD_TO_OUTFILE  8
 # define CMD_TO_CMD		 9
-
-// # define malloc(x) NULL
 
 typedef	struct s_store
 {
