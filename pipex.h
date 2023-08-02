@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:02 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/02 13:28:58 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:37:16 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ char	*ft_strjoin_slash(char *src, char *dest);
 
 // multipipes
 void	ft_multipipes(t_store *store, int i, int j);
-void	ft_exec_cmd(char *cmd, t_store *store, int flag);
-void	ft_manage_redirection(t_store *store, int flag);
+void	ft_exec_cmd(char *cmd, t_store *store, int flag, int hd_flag);
+void	ft_open_and_redirect(t_store *store, int flag, int hd_flag);
 
 // utils
 int		ft_check_access(char *path);

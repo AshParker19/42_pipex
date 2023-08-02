@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:45:47 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/02 13:55:20 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/02 16:31:33 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	ft_multipipes_hd(t_store *store, int i, int j)
 		if (store->pid[i] == 0)
 		{
 			if (j == 3)
-				ft_exec_cmd(store->av[3], store, INFILE_TO_CMD);
+				ft_exec_cmd(store->av[3], store, INFILE_TO_CMD, 1);
 			else if (j == store->ac - 2)
-				ft_exec_cmd(store->av[store->ac - 2], store, CMD_TO_OUTFILE);
+				ft_exec_cmd(store->av[store->ac - 2], store, CMD_TO_OUTFILE, 1);
 			else
-				ft_exec_cmd(store->av[j], store, CMD_TO_CMD);		
+				ft_exec_cmd(store->av[j], store, CMD_TO_CMD, 1);		
 		}
 		if (i > 0)
 			close(store->p_fd);
@@ -39,7 +39,6 @@ void	ft_multipipes_hd(t_store *store, int i, int j)
 		store->p_fd = store->fd[0];
 	}
 	close(store->infile_fd);
-	close(store->outfile_fd);
 	i = -1;
 	while (++i < store->ac - 4)
 		waitpid(store->pid[i], &store->status, 0);
@@ -79,48 +78,18 @@ void	ft_here_doc(t_store *store)
 
 void	ft_initialize_store(t_store *store, int ac, char **av, char **env, int flag)
 {
-	int	check;
-
-	if (flag == 1)
-	{
-		check = store->infile_fd = open(av[1], O_RDONLY);
-		if (check < 0)
-		{
-			perror("open");
-			exit(0);
-		}
-		check = store->outfile_fd = open(av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0666);
-		if (check < 0)
-		{
-			close(store->infile_fd);
-			perror("open");
-		}
-	}
-	else if (flag == 2)
-	{
-		check = store->outfile_fd = open(av[ac - 1], O_RDWR | O_CREAT | O_APPEND, 0666);
-		if (check < 0)
-		{
-			close(store->infile_fd);
-			perror("open");
-			exit(OPEN_ERROR);
-		}
-	}
 	store->path_dirs = ft_get_path(env);
 	store->ac = ac;
 	store->av = av;
 	store->env = env;
+	store->infile_fd = -1;
+	store->outfile_fd = -1;
 }
 
-int	main(int ac, char *av[], char *env[]) // TODO: error checking
+int	main(int ac, char *av[], char *env[])
 {
 	t_store	store;
 	
-	if (ac < 5 || !*av[1])
-	{
-		ft_putstr_fd("Wrong arguments!\n", 2);
-		exit (ARGUMENT_ERROR);
-	}
 	if (ft_strncmp(av[1], "here_doc", 9) == 0)
 	{
 		ft_initialize_store(&store, ac, av, env, 2);
