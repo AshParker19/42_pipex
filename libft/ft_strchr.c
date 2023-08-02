@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:57:07 by anshovah          #+#    #+#             */
-/*   Updated: 2023/03/05 18:52:14 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/02 12:10:25 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_strchr(const char *s, int c)
 
 	i = 0;
 	c1 = c;
+	if (!s)
+		return (NULL);
 	while (s[i])
 	{
 		if (s[i] == c1)

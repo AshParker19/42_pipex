@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:45:47 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/01 23:07:22 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/02 13:55:20 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_multipipes_hd(t_store *store, int i, int j)
 		if (j < store->ac - 2)
 			pipe(store->fd);
 		store->pid[i] = fork();
-		if (store->pid[i] == 0) //FIXME:redirection for here_doc
+		if (store->pid[i] == 0)
 		{
 			if (j == 3)
 				ft_exec_cmd(store->av[3], store, INFILE_TO_CMD);
@@ -42,7 +42,7 @@ void	ft_multipipes_hd(t_store *store, int i, int j)
 	close(store->outfile_fd);
 	i = -1;
 	while (++i < store->ac - 4)
-		waitpid(store->pid[i], NULL, 0);
+		waitpid(store->pid[i], &store->status, 0);
 	free (store->pid);	
 	ft_free_array(store->path_dirs);
 }
@@ -50,21 +50,30 @@ void	ft_multipipes_hd(t_store *store, int i, int j)
 void	ft_here_doc(t_store *store)
 {
 	char	*line = NULL;
-	
+	char	*delimiter;
+	int		fd[2];
+
+	if (pipe(fd) == -1)
+		exit(256);
+	store->infile_fd = fd[1];
+	delimiter = ft_strjoin(store->av[2], "\n");
 	while (1)
 	{
 		if (line)
 			free (line);
 		line = get_next_line(STDIN_FILENO);
-		if (!(ft_strncmp(line, store->av[2], ft_strlen(store->av[2]))))
+		if (!line)
+			break;
+		if (!(ft_strncmp(line, delimiter, ft_strlen(delimiter))))
 		{
 			free (line);
 			break;					
 		}
 		write(store->infile_fd, line, ft_strlen(line));
 	}
-	close (store->infile_fd);
-	store->infile_fd = open("here_doc_buff", O_RDONLY);
+	close(store->infile_fd);
+	free(delimiter);
+	store->infile_fd = fd[0];
 	ft_multipipes_hd(store, 0, 3);
 }
 
@@ -78,24 +87,17 @@ void	ft_initialize_store(t_store *store, int ac, char **av, char **env, int flag
 		if (check < 0)
 		{
 			perror("open");
-			// exit(OPEN_ERROR);
+			exit(0);
 		}
 		check = store->outfile_fd = open(av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0666);
 		if (check < 0)
 		{
 			close(store->infile_fd);
 			perror("open");
-			// exit(OPEN_ERROR);
 		}
 	}
 	else if (flag == 2)
 	{
-		check = store->infile_fd = open("here_doc_buff", O_RDWR | O_CREAT , 0666);
-		if (check < 0)
-		{
-			perror("open");
-			exit(OPEN_ERROR);
-		}
 		check = store->outfile_fd = open(av[ac - 1], O_RDWR | O_CREAT | O_APPEND, 0666);
 		if (check < 0)
 		{
@@ -123,13 +125,13 @@ int	main(int ac, char *av[], char *env[]) // TODO: error checking
 	{
 		ft_initialize_store(&store, ac, av, env, 2);
 		ft_here_doc(&store);
-		unlink("here_doc_buff");
 	}
 	else
 	{
 		ft_initialize_store(&store, ac, av, env, 1);
 		ft_multipipes(&store, 0, 2);
 	}
-	return (store.status);
+	if (WIFEXITED(store.status))
+		return (WEXITSTATUS(store.status));
+	return (1);
 }
-// check if any of the arguments are not empty strings or if the commands are correct

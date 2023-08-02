@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:02 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/01 23:02:00 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/02 13:28:58 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 // errors TODO: do error values according to the system's ones
 # define ARGUMENT_ERROR  1
 # define ACCESS_ERROR    2
-# define OPEN_ERROR      3
+# define OPEN_ERROR      1
 # define PIPE_ERROR      4
 # define FORK_ERROR      5
-# define EXECVE_ERROR    6
+# define EXECVE_ERROR    127
 
 // checking flags
 
@@ -44,6 +44,7 @@ typedef	struct s_store
 	int		infile_fd;
 	int		outfile_fd;
 	int		fd[2];
+	int		dup_fd[2];
 	int		status;
 	int		*pid;
 	int		p_fd;
@@ -64,7 +65,7 @@ char	*ft_strjoin_slash(char *src, char *dest);
 // multipipes
 void	ft_multipipes(t_store *store, int i, int j);
 void	ft_exec_cmd(char *cmd, t_store *store, int flag);
-void	ft_manage_redirection(t_store *store, int flag, int check);
+void	ft_manage_redirection(t_store *store, int flag);
 
 // utils
 int		ft_check_access(char *path);

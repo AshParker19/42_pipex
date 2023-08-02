@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:30:55 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/01 23:06:29 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/02 13:41:21 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_multipipes(t_store *store, int i, int j)
 {
-	
 	store->pid = malloc((store->ac - 3) * sizeof(int));
 	if (!store->pid)
 		return ;
@@ -54,8 +53,10 @@ void	ft_exec_cmd(char *cmd, t_store *store, int flag)
 	char	*cmd_path;
 
 	argv = ft_split(cmd, ' ');
-	cmd_path = ft_find_command(argv[0], store->path_dirs);
-	ft_manage_redirection(store, flag, 0);
+	cmd_path = NULL;
+	if (argv[0])
+		cmd_path = ft_find_command(argv[0], store->path_dirs);
+	ft_manage_redirection(store, flag);
 	if (cmd_path)
 	{
 		execve(cmd_path, argv, store->env);
@@ -64,39 +65,45 @@ void	ft_exec_cmd(char *cmd, t_store *store, int flag)
 	else
 	{
 		ft_putstr_fd("command not found: ", 2);
-		ft_putendl_fd(argv[0], 2);
+		if (!argv[0])
+			ft_putendl_fd("''", 2);
+		else
+			ft_putendl_fd(argv[0], 2);
 	}
+	close(store->dup_fd[0]);
+	close(store->dup_fd[1]);
 	close(store->outfile_fd);
+	close(store->infile_fd);
 	free (cmd_path);
 	free (store->pid);
 	ft_free_array(store->path_dirs);
 	ft_free_array(argv);
 	exit(EXECVE_ERROR);
 }
-
-void	ft_manage_redirection(t_store *store, int flag, int check)
+// FIXME: CHECK DUP2 RETURN
+void	ft_manage_redirection(t_store *store, int flag)
 {	
 	if (flag == INFILE_TO_CMD)
 	{
 		close(store->fd[0]);
-		check = dup2(store->infile_fd, STDIN_FILENO);
+		store->dup_fd[0] = dup2(store->infile_fd, STDIN_FILENO);
 		close(store->infile_fd);
-		check = dup2(store->fd[1], STDOUT_FILENO);
+		store->dup_fd[1] = dup2(store->fd[1], STDOUT_FILENO);
 		close(store->fd[1]);
 	}
 	else if (flag == CMD_TO_OUTFILE)
 	{
-		check = dup2(store->p_fd, STDIN_FILENO);
+		store->dup_fd[0] = dup2(store->p_fd, STDIN_FILENO);
 		close (store->p_fd);
-		check = dup2(store->outfile_fd, STDOUT_FILENO);
+		store->dup_fd[1] = dup2(store->outfile_fd, STDOUT_FILENO);
 		close (store->outfile_fd);
 	}
 	else if (flag == CMD_TO_CMD)
 	{
-		check = dup2(store->p_fd, STDIN_FILENO);
+		store->dup_fd[0] = dup2(store->p_fd, STDIN_FILENO);
 		close(store->p_fd);
 		close(store->fd[0]);
-		check = dup2(store->fd[1], STDOUT_FILENO);
+		store->dup_fd[1] = dup2(store->fd[1], STDOUT_FILENO);
 		close(store->fd[1]);
 	}
 }
