@@ -6,14 +6,14 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 12:47:20 by anshovah          #+#    #+#             */
-/*   Updated: 2023/03/10 15:10:01 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:59:53 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 int	ft_to_trim(char c, const char *set)
-{	
+{
 	while (*set)
 	{
 		if (c == *set++)
@@ -48,10 +48,10 @@ size_t	ft_get_end(char const *s1, char const *set, size_t len)
 	while (s1[len])
 	{
 		if (ft_to_trim(s1[len], set))
-		{	
+		{
 			len--;
 			end++;
-		}	
+		}
 		else
 			break ;
 	}

@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 13:47:41 by anshovah          #+#    #+#             */
-/*   Updated: 2023/04/11 13:20:11 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:59:13 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	if (!dest && !src)
 		return (NULL);
 	else if (dest > src)
-	{	
+	{
 		while (n-- > 0)
 			char_dest[n] = char_src[n];
-	}		
+	}
 	else
 		ft_memcpy(dest, src, n);
 	return (dest);

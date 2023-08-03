@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 12:14:02 by anshovah          #+#    #+#             */
-/*   Updated: 2023/05/03 19:21:08 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:58:41 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_printf(const char *str, ...)
 	len = 0;
 	va_start(args, str);
 	while (str[i])
-	{	
+	{
 		if (str[i] == '%' && ft_placeholders(str[i + 1]))
 			ft_get_printed(args, str[++i], &len);
 		else

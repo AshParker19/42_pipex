@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:16:24 by anshovah          #+#    #+#             */
-/*   Updated: 2023/03/05 16:40:42 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:57:50 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 		dst[j] = src[i];
 		j++;
 		i++;
-	}	
+	}
 	dst[j] = 0;
 	return (dst_len + src_len);
 }

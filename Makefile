@@ -5,7 +5,7 @@ CC = cc
 CFLAGS = -g #-fsanitize=address
 #TODO:FIXME:!!! DON'T FORGET FREAKING FLAGS !!!FIXME:TODO:
 
-SRCS := $(wildcard *.c) $(wildcard get_next_line/*c)
+SRCS := $(wildcard *.c) #TODO: 
 
 OBJS :=$(SRCS:.c=.o)
 
@@ -21,9 +21,12 @@ RESET  = 	\033[0m
 LIBFT = make -sC ./libft
 LIBFT_FOLDER = ./libft
 
-.PHONY: all clean fclean norm re
+.PHONY: all clean fclean norm bonus re
 
 all : $(NAME)
+
+bonus : CFLAGS:= $(CFLAGS) -DLIMIT_ARGS=-1
+bonus : $(NAME)
 
 $(NAME): $(OBJS)
 	@$(LIBFT)
@@ -32,7 +35,6 @@ $(NAME): $(OBJS)
 	@echo "$(GREEN)♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙"
 	@echo "$(BLUE)♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙"
 	@echo "$(BLUE)♜ ♞ ♝ ♚ ♛ ♝ ♞ ♜$(RESET)"
-	@rm -rf $(OBJS) # !!! remove this shit !!!
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@

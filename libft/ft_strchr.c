@@ -6,14 +6,14 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:57:07 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/02 12:10:25 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:58:59 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
-{	
+{
 	int				i;
 	unsigned char	c1;
 

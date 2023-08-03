@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 17:23:15 by anshovah          #+#    #+#             */
-/*   Updated: 2023/03/06 18:12:03 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:56:48 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 				return (big_c + i);
 			j++;
 		}
-	}	
+	}
 	return (0);
 }

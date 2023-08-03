@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:24:38 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/02 20:57:55 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:56:00 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_find_command(char *cmd, char **path_dirs)
 	int		i;
 	char	*path;
 
-	mode = X_OK | F_OK;
+	mode = F_OK;
 	i = -1;
 	if (ft_strchr(cmd, '/') != NULL)
 	{
@@ -67,6 +67,7 @@ char	*ft_find_command(char *cmd, char **path_dirs)
 	}
 	return (NULL);
 }
+
 char	*ft_strjoin_slash(char *src, char *dest)
 {
 	int		i;
@@ -83,7 +84,7 @@ char	*ft_strjoin_slash(char *src, char *dest)
 	if (!path)
 		return (NULL);
 	i = -1;
-	while(dest[++i])
+	while (dest[++i])
 		path[i] = dest[i];
 	path[i++] = '/';
 	j = -1;

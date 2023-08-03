@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:09:00 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/03 12:15:45 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:54:44 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_check_access(char *path)
 	if (check == 0)
 		return (1);
 	else
-		return (0);	
+		return (0);
 }
 
 void	ft_free_and_close(t_store *store)
@@ -58,7 +58,7 @@ void	ft_free_and_close(t_store *store)
 	if (store->dup_fd[1] != -1)
 		close(store->dup_fd[1]);
 	if (store->p_fd != -1)
-		close(store->p_fd);	
+		close(store->p_fd);
 	if (store->pid)
 		free(store->pid);
 	if (store->path_dirs)
@@ -66,7 +66,7 @@ void	ft_free_and_close(t_store *store)
 	if (store->cmd_av)
 		ft_free_array(store->cmd_av);
 	if (store->cmd_path)
-		free(store->cmd_path);				
+		free(store->cmd_path);
 }
 
 void	ft_free_array(char **arr)
@@ -76,5 +76,5 @@ void	ft_free_array(char **arr)
 	i = -1;
 	while (arr[++i])
 		free(arr[i]);
-	free (arr);	
+	free (arr);
 }
