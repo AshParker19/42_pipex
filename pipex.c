@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:45:47 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/02 21:19:09 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:12:03 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ void	ft_multipipes_hd(t_store *store, int i, int j)
 	i = -1;
 	while (++i < store->ac - 4)
 		waitpid(store->pid[i], &store->status, 0);
-	free (store->pid);	
-	ft_free_array(store->path_dirs);
+	ft_free_and_close(store);
 }
 
 void	ft_here_doc(t_store *store)
@@ -76,33 +75,17 @@ void	ft_here_doc(t_store *store)
 	ft_multipipes_hd(store, 0, 3);
 }
 
-void	ft_initialize_store(t_store *store, int ac, char **av, char **env, int flag)
-{
-	store->path_dirs = ft_get_path(env);
-	store->ac = ac;
-	store->av = av;
-	store->env = env;
-	store->infile_fd = -1;
-	store->outfile_fd = -1;
-	store->fd[0] = -1;
-	store->fd[1] = -1;
-	store->dup_fd[0] = -1;
-	store->dup_fd[1] = -1;
-	store->p_fd = -1;
-}
-
 int	main(int ac, char *av[], char *env[])
 {
 	t_store	store;
 	
+	ft_initialize_store(&store, ac, av, env);
 	if (ft_strncmp(av[1], "here_doc", 9) == 0)
 	{
-		ft_initialize_store(&store, ac, av, env, 2);
 		ft_here_doc(&store);
 	}
 	else
 	{
-		ft_initialize_store(&store, ac, av, env, 1);
 		ft_multipipes(&store, 0, 2);
 	}
 	if (WIFEXITED(store.status))

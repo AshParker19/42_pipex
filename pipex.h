@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:02 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/02 21:27:40 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:24:20 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <stdbool.h>
 # include "libft/libft.h"
 
 // errors
@@ -45,6 +46,8 @@ typedef	struct s_store
 	int		*pid;
 	int		p_fd;
 	char	**path_dirs;
+	char	**cmd_av;
+	char	*cmd_path;
 	int		ac;
 	char	**av;
 	char	**env;
@@ -59,12 +62,17 @@ char	*ft_find_command(char *cmd, char **path_dirs);
 char	*ft_strjoin_slash(char *src, char *dest);
 
 // multipipes
-void	ft_multipipes(t_store *store, int i, int j);
+void	ft_multipipes(t_store *store, int i, int j, int hd_flag);
 void	ft_exec_cmd(char *cmd, t_store *store, int flag, int hd_flag);
 void	ft_open_and_redirect(t_store *store, int flag, int hd_flag);
 
+void	ft_open_infile(t_store *store, int check);
+void	ft_open_outfile(t_store *store, int check, bool hd_flag);
+
 // utils
+void	ft_initialize_store(t_store *store, int ac, char **av, char **env);
 int		ft_check_access(char *path);
+void	ft_free_and_close(t_store *store);
 void	ft_free_array(char **arr);
 
 #endif
