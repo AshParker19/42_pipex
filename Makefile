@@ -2,12 +2,14 @@ NAME = pipex
 
 CC = cc
 
-CFLAGS = -g #-fsanitize=address
-#TODO:FIXME:!!! DON'T FORGET FREAKING FLAGS !!!FIXME:TODO:
+CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
 
-SRCS := $(wildcard *.c) #TODO: 
+SRCS := srcs/here_doc.c  srcs/multipipes.c  srcs/path_and_command.c  \
+		srcs/pipex.c  srcs/utils2.c  srcs/utils.c
 
 OBJS :=$(SRCS:.c=.o)
+
+INCLUDES = -I includes -I .
 
 # colors
 RED    = 	\033[0;31m
@@ -21,7 +23,7 @@ RESET  = 	\033[0m
 LIBFT = make -sC ./libft
 LIBFT_FOLDER = ./libft
 
-.PHONY: all clean fclean norm bonus re
+.PHONY: all clean fclean bonus re
 
 all : $(NAME)
 
@@ -30,21 +32,23 @@ bonus : $(NAME)
 
 $(NAME): $(OBJS)
 	@$(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS) -Llibft -lft -o $(NAME)
-	@echo "$(GREEN)♖ ♘ ♗ ♕ ♔ ♗ ♘ ♖"
-	@echo "$(GREEN)♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙"
-	@echo "$(BLUE)♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙"
-	@echo "$(BLUE)♜ ♞ ♝ ♚ ♛ ♝ ♞ ♜$(RESET)"
+	@$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) -Llibft -lft -o $(NAME)
+	@echo "$(GREEN)______ ___________ _______   __"
+	@echo "| ___ \_   _| ___ \  ___\ \ / /"
+	@echo "| |_/ / | | | |_/ / |__  \ V /"
+	@echo "|  __/  | | |  __/|  __| /   \\"
+	@echo "| |    _| |_| |   | |___/ /^\ \\"
+	@echo "\_|    \___/\_|   \____/\/   \/$(RESET)"
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	@rm -f $(OBJS)
 	@make clean -sC ./libft
-	@echo "$(ORANGE)┌────────────────────────────────────────────────────────────────────────┐"
-	@echo "│                              $(GREEN)[✓] CLEANED!$(ORANGE)                              │"
-	@echo "$(ORANGE)└────────────────────────────────────────────────────────────────────────┘$(RESET)"
+	@echo "$(ORANGE)┌─────────────────────────────┐"
+	@echo "│         $(GREEN)[✓]CLEANED!$(ORANGE)         │"
+	@echo "$(ORANGE)└─────────────────────────────┘$(RESET)"
 
 fclean : clean
 		@rm -f $(NAME)

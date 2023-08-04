@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:45:47 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/03 16:50:41 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:44:51 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,12 @@ int	main(int ac, char *av[], char *env[])
 {
 	t_store	store;
 
-	if ((LIMIT_ARGS != -1 && ac != LIMIT_ARGS) || ac < 5)
+	if ((LIMIT_ARGS != -1 && ac != LIMIT_ARGS) || (ac < 5))
+	{
+		ft_putstr_fd("Wrong arguments!\n", 2);
+		return (ARGUMENT_ERROR);
+	}
+	if (ft_strncmp(av[1], "here_doc", 9) == 0 && ac < 6)
 	{
 		ft_putstr_fd("Wrong arguments!\n", 2);
 		return (ARGUMENT_ERROR);

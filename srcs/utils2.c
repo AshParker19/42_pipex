@@ -6,7 +6,7 @@
 /*   By: anshovah <anshovah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 13:20:06 by anshovah          #+#    #+#             */
-/*   Updated: 2023/08/03 16:55:27 by anshovah         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:06:38 by anshovah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ft_cmd_to_outfile(t_store *store, int mode)
 
 void	ft_cmd_to_cmd(t_store *store, int mode)
 {
+	(void)mode;
 	store->dup_fd[0] = dup2(store->p_fd, STDIN_FILENO);
 	close(store->p_fd);
 	close(store->fd[0]);

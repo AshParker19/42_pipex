@@ -41,10 +41,9 @@ DEF = \033[0m
 
 $(NAME) : $(OBJS)
 	@ar -crs $@ $^
-	@echo "$(ORANGE)┌───────────────────────────────────────────────────┐$(DEF)"
-	@echo "$(ORANGE)│                 $(GREEN)LIBFT IS COMPILED$(ORANGE)\
-	                 │$(DEF)"
-	@echo "$(ORANGE)└───────────────────────────────────────────────────┘$(DEF)"
+	@echo "$(ORANGE)┌─────────────────────────────┐$(DEF)"
+	@echo "$(ORANGE)│      $(GREEN)LIBFT IS COMPILED$(ORANGE)      │$(DEF)"
+	@echo "$(ORANGE)└─────────────────────────────┘$(DEF)"
 	
 all: $(NAME)
 
