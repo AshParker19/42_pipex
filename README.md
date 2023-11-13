@@ -37,6 +37,8 @@ Process is an instance of a program. When we start our computers we start the pr
 ### ```Pipes```
 As it was already said, pipes are the way to communicate between processes. A pipe is a unidirectional data channel. It has two ends: the read end and the write end. The read end is used to read data from the pipe and the write end is used to write data to the pipe. The pipe is created with the ```pipe``` function. The ```pipe``` function takes as an argument an array of two integers. The first integer is the read end and the second integer is the write end. The ```pipe``` function returns 0 if it was successful and -1 if it failed.
 When we fork, we duplicate all the data related to the parent process including the file descriptors. So, if we create a pipe before the fork, both the parent and the child process will have access to the pipe. The parent process will close the read end of the pipe and the child process will close the write end of the pipe. 
+![Screenshot 2023-11-13 at 09 31 08](https://github.com/AshParker19/42_pipex/assets/117525743/15da8c9d-07a8-4752-855e-2340fef0caca)
+
 
 ### ```Duplicates and redirections```
 The way to redirect the content of the file to the command and then output of the command to another command is to duplicate the file descriptors and redirect the IO using he ```dup2``` function. The ```dup2``` function takes as an argument the file descriptor to duplicate and the file descriptor to redirect to. The ```dup2``` function returns the new file descriptor if it was successful and -1 if it failed. The ```open``` function opens a file and returns the file descriptor. 
