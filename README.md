@@ -39,7 +39,7 @@ Process is an instance of a program. When we start our computers we start the pr
     if our input was `ls -l -a` then `av` will be `["ls", "-l", "-a", NULL]`
 *  `env` is NULL-terminated array of strings which contains the environment variables for the program that we want to execute.
     We get them via `main` fucntion as a third argument.
-    `int main(int ac, char **av, **char **env**)`
+    `int main(int ac, char **av, char **env)`
 
 ### ```Pipes```
 As it was already said, pipes are the way to communicate between processes. A pipe is a unidirectional data channel. It has two ends: the read end and the write end. The read end is used to read data from the pipe and the write end is used to write data to the pipe. The pipe is created with the ```pipe``` function. The ```pipe``` function takes as an argument an array of two integers. The first integer is the read end and the second integer is the write end. The ```pipe``` function returns 0 if it was successful and -1 if it failed.
@@ -75,13 +75,12 @@ The idea is the same as for the mandatory part, but instead of 1 pipe we have mu
 The `heredoc` is a tool which allows to write a multiline string text in the terminal. The `heredoc` is used in the shell scripts. It is written between the ```<<``` and ```LIMITER``` keywords. The `heredoc` is used in the following way:
 ```command << LIMITER```
 
+![Screenshot 2023-11-13 at 09 50 08](https://github.com/AshParker19/42_pipex/assets/117525743/bb98d030-f3c0-4edc-a2f7-9d8953e5c3b9)
+
 _We can use heredoc with multiple commands and pipes._
 
 In terms of pipex, when we have the `heredoc` in the command, the output of the last command will be appended to the `outfile`, so we use `open`
 with `O_APPEND` flag to append the output to the file.
-```command << LIMITER```
-
-![Screenshot 2023-11-13 at 09 50 08](https://github.com/AshParker19/42_pipex/assets/117525743/bb98d030-f3c0-4edc-a2f7-9d8953e5c3b9)
 
 ---
 
