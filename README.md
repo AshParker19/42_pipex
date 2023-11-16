@@ -65,8 +65,8 @@ The ```open``` function takes as an argument the path to the file and the flags.
 
 ## `The bonus:`
 The bonus consists of 2 parts:
-1. `_multiple pipes_`
-2. `_heredoc_`
+1. `multiple pipes`
+2. `heredoc`
 
 ### `Multiple pipes`
 The idea is the same as for the mandatory part, but instead of 1 pipe we have multiple pipes. The number of pipes is equal to the number of commands minus 1. The first command reads from the file and writes to the first pipe. The second command reads from the first pipe and writes to the second pipe. The last command reads from the last pipe and writes to the file. The commands in the middle read from the previous pipe and write to the next pipe. The parent process closes all the pipes and waits for the child processes to finish.
